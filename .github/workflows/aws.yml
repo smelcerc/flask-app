@@ -60,7 +60,7 @@ jobs:
       id: build-image
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        ECR_REPOSITORY: ${{ env.AWS_ECR_REPOSITORY_NAME }}
+        ECR_REPOSITORY: flask-app
         IMAGE_TAG: ${{ github.sha }}
       run: |
         # Build a docker container and
@@ -85,6 +85,6 @@ jobs:
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
       with:
         task-definition: ${{ steps.task-def.outputs.task-definition }}
-        service: ${{ env.AWS_ECS_SERVICE_NAME }}
-        cluster: ${{ env.AWS_ECS_CLUSTER_NAME }}
+        service: flask-app
+        cluster: flask-app
         wait-for-service-stability: true
